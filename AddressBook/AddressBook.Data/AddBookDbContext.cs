@@ -10,7 +10,7 @@ using AddressBook.Entites;
 
 namespace AddressBook.Data
 {
-    public class AdBookDbContext : DbContext
+    public class AddBookDbContext : DbContext
     {
         public DbSet<Contact> Contacts { get; set; }
 

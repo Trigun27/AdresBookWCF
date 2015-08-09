@@ -10,13 +10,14 @@ namespace AddressBook.Entites
     [DataContract]
     public class Contact
     {
+        [DataMember]
         public int Id { get; set; }
 
         [DataMember]
         public string FirstName { get; set; }
 
         [DataMember]
-        public string MiddelName { get; set; }
+        public string MiddleName { get; set; }
 
         [DataMember]
         public string LastName { get; set; }
@@ -27,7 +28,7 @@ namespace AddressBook.Entites
         [DataMember]
         public string FullName 
         { 
-            get { return string.Format("{0} {1} {2}", LastName, FirstName, MiddelName); } 
+            get { return string.Format("{0} {1} {2}", LastName, FirstName, MiddleName); } 
             set {} 
         }
 

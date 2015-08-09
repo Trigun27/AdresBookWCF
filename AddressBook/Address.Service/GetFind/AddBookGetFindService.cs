@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using AddressBook.Data;
 using AddressBook.Entites;
 
 namespace Address.Service.GetFind
 {
-    public class AddBookGetFindService : IAddressBookGetFind
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    public class AddBookGetFindService : IAddressBookGetFind, IDisposable
     {
-        readonly AdBookDbContext _context = new AdBookDbContext();
+        readonly AddBookDbContext _context = new AddBookDbContext();
 
-         public List<Contact> GetContact()
+
+        public List<Contact> GetContact()
         {
             return _context.Contacts.ToList();
         }
@@ -26,28 +29,26 @@ namespace Address.Service.GetFind
         public List<Contact> FindContactbyName(int varOperation, string str)
         {
             List<Contact> contacts = _context.Contacts.ToList();
+           
             switch (varOperation)
             {
                 case 1:
                     {
-                        contacts.Where(
-                            contact => string.Compare(contact.LastName, str, StringComparison.CurrentCulture) == 0).ToList();
-                    }break;
+                        return contacts.Where(contact => string.Compare(contact.LastName, str, StringComparison.CurrentCulture) == 0).ToList();
+                    }
                 case 2:
                     {
-                        contacts.Where(
-                            contact => string.Compare(contact.MiddelName, str, StringComparison.CurrentCulture) == 0).ToList();
-                    } break;
+                        return contacts.Where(contact => string.Compare(contact.MiddleName, str, StringComparison.CurrentCulture) == 0).ToList();
+                    } 
                 case 3:
                     {
-                        contacts.Where(
-                            contact => string.Compare(contact.FirstName, str, StringComparison.CurrentCulture) == 0).ToList();
-                    } break;
+                        return contacts.Where(contact => string.Compare(contact.FirstName, str, StringComparison.CurrentCulture) == 0).ToList();
+                    } 
                 case 4:
                 {
                     throw new NotImplementedException();
                 }
-
+                    
             }
             return null;
         }
@@ -57,7 +58,12 @@ namespace Address.Service.GetFind
         /*public List<Contact> FindContactbyName(string firstName, string middleName, string lastName)
         {
           throw new NotImplementedException();
-        } */ 
+        } */
 
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }
