@@ -1,20 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using AddressBook.Data;
-using AddressBook.Entites;
+using Address.Service.GetFind;
+
 
 namespace Tests
 {
     class Program
     {
-        static AddBookDbContext _context = new AddBookDbContext();
+        
 
         static void Main(string[] args)
         {
-            
+            try
+            {
+                ServiceHost host = new ServiceHost(typeof(AddBookGetFindService));
+                host.Open();
+                Console.WriteLine("Alright");
+                Console.ReadKey();
+                host.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
