@@ -19,9 +19,11 @@ namespace Address.Service.Codes
 
         public List<Contact> FindContactbyPhone(string phoneNumber)
         {
+            char[] charsToTrim = { '-', ' ', '(', ')' };
+
             List<Contact> contacts = _context.Contacts.ToList();
             return contacts.Where(contact =>
-                string.Compare(contact.PhoneNumber, phoneNumber, StringComparison.CurrentCulture) == 0).ToList();
+                string.Compare(contact.PhoneNumber.Trim(charsToTrim), phoneNumber, StringComparison.CurrentCulture) == 0).ToList();
 
         }
 
@@ -45,7 +47,11 @@ namespace Address.Service.Codes
                     } 
                 case 4:
                 {
-                    throw new NotImplementedException();
+                    return
+                        contacts.Where(
+                            contact =>
+                                string.Compare(contact.LastName + contact.FirstName + contact.MiddleName, str.Replace(" ",""),
+                                    StringComparison.CurrentCulture) == 0).ToList();
                 }
                     
             }
@@ -54,24 +60,26 @@ namespace Address.Service.Codes
 
         public void AddContact(Contact contact)
         {
-            throw new NotImplementedException();
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
         }
 
-        public int ChangePhoneNumber()
+        public void ChangePhoneNumber(int contactId, string phoneNumber)
         {
-            throw new NotImplementedException();
+            var contact = _context.Contacts.Find(contactId);
+
+            contact.PhoneNumber = phoneNumber;
+
+           _context.SaveChanges();
         }
 
-        public int DeleteContact()
+        public void DeleteContact(int contactId)
         {
-            throw new NotImplementedException();
+            var contact = _context.Contacts.Find(contactId);
+            _context.Contacts.Remove(contact);
+            _context.SaveChanges();
         }
 
-
-        /*public List<Contact> FindContactbyName(string firstName, string middleName, string lastName)
-        {
-          throw new NotImplementedException();
-        } */
 
 
         public void Dispose()

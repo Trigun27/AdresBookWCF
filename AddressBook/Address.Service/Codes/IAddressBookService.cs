@@ -20,10 +20,10 @@ namespace Address.Service.Codes
         void AddContact(Contact contact);
 
         [OperationContract]
-        int ChangePhoneNumber();
+        void ChangePhoneNumber(int contactId, string phoneNumber);
 
         [OperationContract]
-        int DeleteContact();
+        void DeleteContact(int contactId);
 
     }
 }
