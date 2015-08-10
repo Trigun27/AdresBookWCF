@@ -25,6 +25,8 @@ namespace AdresBook.UI
             FindContactbyPhoneCommand = new DelegateCommand(OnFindContactbyPhone);
             FindContactbyNameCommand = new DelegateCommand(OnFindContactbyName);
             AddContactCommand = new DelegateCommand(OnAddContact);
+            DeleteContactCommand = new DelegateCommand(OnDeleteContact);
+            ChangePhoneNumberCommand = new DelegateCommand(OnChangePhoneNumber);
         }
 
 
@@ -75,12 +77,12 @@ namespace AdresBook.UI
             set { SetProperty(ref _fullName, value); }
         }
 
-        private string _findName;
+        private int _id;
 
-        public string FindName
+        public int Id
         {
-            get { return _findName; }
-            set { SetProperty(ref _findName, value); }
+            get { return _id; }
+            set { SetProperty(ref _id, value); }
         }
 
         public DelegateCommand GetContactsCommand { get; private set; }
@@ -150,7 +152,7 @@ namespace AdresBook.UI
             AddressBookServiceClient proxy = new AddressBookServiceClient("BasicHttpBinding_IAddressBookService");
             try
             {
-                Contacts = await proxy.FindContactbyNameAsync(4, _findName);
+                Contacts = await proxy.FindContactbyNameAsync(4, _fullName);
             }
             catch (Exception e)
             {
@@ -173,20 +175,23 @@ namespace AdresBook.UI
         {
             Contact newContact = new Contact();
             AddressBookServiceClient proxy = new AddressBookServiceClient("BasicHttpBinding_IAddressBookService");
-            string[] fio = _fullName.Trim().Split(' ');
+            
 
             try
             {
+                string[] fio = _fullName.Trim().Split(' ');
 
                 var buffContacts = await proxy.GetContactAsync();
                 newContact.FullName = _fullName.Trim();
                 newContact.LastName = fio[0];
                 newContact.FirstName = fio[1];
                 newContact.MiddleName = fio[2];
-                newContact.PhoneNumber = _phoneNumber.Insert(0,"(").Insert(4,") ").Insert(9,"-");
+                //newContact.PhoneNumber = _phoneNumber.Insert(0,"(").Insert(4,") ").Insert(9,"-");
+                newContact.PhoneNumber = _phoneNumber;
                 newContact.Id = buffContacts.Count + 1;
 
                 await proxy.AddContactAsync(newContact);
+                Contacts = await proxy.GetContactAsync();
 
             }
             catch (Exception e)
@@ -198,10 +203,56 @@ namespace AdresBook.UI
                 proxy.Close();
             }
         }
-        
-    
-    
-    
+
+        public DelegateCommand DeleteContactCommand { get; private set; }
+
+        private void OnDeleteContact()
+        {
+            DeleteContact();
+        }
+
+        private async void DeleteContact()
+        {
+            AddressBookServiceClient proxy = new AddressBookServiceClient("BasicHttpBinding_IAddressBookService");
+            try
+            {
+                await proxy.DeleteContactAsync(_id);
+                Contacts = await proxy.GetContactAsync();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error " + e.Message);
+            }
+            finally
+            {
+                proxy.Close();
+            }
+        }
+
+        public DelegateCommand ChangePhoneNumberCommand { get; private set; }
+
+        private void OnChangePhoneNumber()
+        {
+            ChangePhoneNumber();
+        }
+
+        private async void ChangePhoneNumber()
+        {
+            AddressBookServiceClient proxy = new AddressBookServiceClient("BasicHttpBinding_IAddressBookService");
+            try
+            {    
+                await proxy.ChangePhoneNumberAsync(_id,_phoneNumber.Insert(0,"(").Insert(4,") ").Insert(9,"-"));
+                Contacts = await proxy.FindContactbyPhoneAsync(_phoneNumber);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error " + e.Message);
+            }
+            finally
+            {
+                proxy.Close();
+            }
+        }
     
     
     

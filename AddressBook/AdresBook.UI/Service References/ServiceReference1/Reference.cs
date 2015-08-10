@@ -40,16 +40,16 @@ namespace AdresBook.UI.ServiceReference1 {
         System.Threading.Tasks.Task AddContactAsync(AddressBook.Entites.Contact contact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressBookService/ChangePhoneNumber", ReplyAction="http://tempuri.org/IAddressBookService/ChangePhoneNumberResponse")]
-        int ChangePhoneNumber();
+        void ChangePhoneNumber(int contactId, string phoneNumber);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressBookService/ChangePhoneNumber", ReplyAction="http://tempuri.org/IAddressBookService/ChangePhoneNumberResponse")]
-        System.Threading.Tasks.Task<int> ChangePhoneNumberAsync();
+        System.Threading.Tasks.Task ChangePhoneNumberAsync(int contactId, string phoneNumber);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressBookService/DeleteContact", ReplyAction="http://tempuri.org/IAddressBookService/DeleteContactResponse")]
-        int DeleteContact();
+        void DeleteContact(int contactId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressBookService/DeleteContact", ReplyAction="http://tempuri.org/IAddressBookService/DeleteContactResponse")]
-        System.Threading.Tasks.Task<int> DeleteContactAsync();
+        System.Threading.Tasks.Task DeleteContactAsync(int contactId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,20 +111,20 @@ namespace AdresBook.UI.ServiceReference1 {
             return base.Channel.AddContactAsync(contact);
         }
         
-        public int ChangePhoneNumber() {
-            return base.Channel.ChangePhoneNumber();
+        public void ChangePhoneNumber(int contactId, string phoneNumber) {
+            base.Channel.ChangePhoneNumber(contactId, phoneNumber);
         }
         
-        public System.Threading.Tasks.Task<int> ChangePhoneNumberAsync() {
-            return base.Channel.ChangePhoneNumberAsync();
+        public System.Threading.Tasks.Task ChangePhoneNumberAsync(int contactId, string phoneNumber) {
+            return base.Channel.ChangePhoneNumberAsync(contactId, phoneNumber);
         }
         
-        public int DeleteContact() {
-            return base.Channel.DeleteContact();
+        public void DeleteContact(int contactId) {
+            base.Channel.DeleteContact(contactId);
         }
         
-        public System.Threading.Tasks.Task<int> DeleteContactAsync() {
-            return base.Channel.DeleteContactAsync();
+        public System.Threading.Tasks.Task DeleteContactAsync(int contactId) {
+            return base.Channel.DeleteContactAsync(contactId);
         }
     }
 }

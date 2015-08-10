@@ -56,26 +56,27 @@
   </xs:element>
   <xs:element name="ChangePhoneNumber">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="contactId" type="xs:int" />
+        <xs:element minOccurs="0" name="phoneNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ChangePhoneNumberResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ChangePhoneNumberResult" type="xs:int" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteContact">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="contactId" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteContactResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DeleteContactResult" type="xs:int" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -19,41 +19,46 @@ namespace Address.Service.Codes
 
         public List<Contact> FindContactbyPhone(string phoneNumber)
         {
-            char[] charsToTrim = { '-', ' ', '(', ')' };
-
             List<Contact> contacts = _context.Contacts.ToList();
             return contacts.Where(contact =>
-                string.Compare(contact.PhoneNumber.Trim(charsToTrim), phoneNumber, StringComparison.CurrentCulture) == 0).ToList();
+                string.Compare(contact.PhoneNumber, phoneNumber, StringComparison.CurrentCulture) == 0).ToList();
 
         }
 
         public List<Contact> FindContactbyName(int varOperation, string str)
         {
-            List<Contact> contacts = _context.Contacts.ToList();
-           
-            switch (varOperation)
+            try
             {
-                case 1:
+                List<Contact> contacts = _context.Contacts.ToList();
+           
+                switch (varOperation)
+                {
+                    case 1:
                     {
                         return contacts.Where(contact => string.Compare(contact.LastName, str, StringComparison.CurrentCulture) == 0).ToList();
                     }
-                case 2:
+                    case 2:
                     {
                         return contacts.Where(contact => string.Compare(contact.MiddleName, str, StringComparison.CurrentCulture) == 0).ToList();
                     } 
-                case 3:
+                    case 3:
                     {
                         return contacts.Where(contact => string.Compare(contact.FirstName, str, StringComparison.CurrentCulture) == 0).ToList();
                     } 
-                case 4:
-                {
-                    return
-                        contacts.Where(
-                            contact =>
-                                string.Compare(contact.LastName + contact.FirstName + contact.MiddleName, str.Replace(" ",""),
-                                    StringComparison.CurrentCulture) == 0).ToList();
-                }
+                    case 4:
+                    {
+                        return
+                            contacts.Where(
+                                contact =>
+                                    string.Compare(contact.LastName + contact.FirstName + contact.MiddleName, str.Replace(" ",""),
+                                        StringComparison.CurrentCulture) == 0).ToList();
+                    }
                     
+                }
+            }
+            catch (Exception e)
+            {
+                //Log It
             }
             return null;
         }
@@ -66,11 +71,20 @@ namespace Address.Service.Codes
 
         public void ChangePhoneNumber(int contactId, string phoneNumber)
         {
-            var contact = _context.Contacts.Find(contactId);
+            try
+            {
+                var contact = _context.Contacts.Find(contactId);
 
-            contact.PhoneNumber = phoneNumber;
+                contact.PhoneNumber = phoneNumber;
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                //Log IT!!!;
+            }
+            
 
-           _context.SaveChanges();
+           
         }
 
         public void DeleteContact(int contactId)
