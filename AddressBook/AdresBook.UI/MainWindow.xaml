@@ -42,13 +42,6 @@
                VerticalAlignment="Top" 
                FontSize="13"/>
 
-                <Label Content="цифры вводяться без пробелов" 
-               HorizontalAlignment="Left" 
-               Margin="10,31,0,0" 
-               VerticalAlignment="Top" 
-               Width="206"
-               FontSize="13"/>
-
                 <TextBox HorizontalAlignment="Left" 
                  Height="23" 
                  Margin="10,63,0,0" 
