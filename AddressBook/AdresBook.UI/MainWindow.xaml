@@ -1,0 +1,126 @@
+﻿<Window x:Class="AdresBook.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AdresBook.UI"
+        Title="MainWindow" 
+        Height="600" 
+        Width="829">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Button Command="{Binding GetContactsCommand}"
+                Margin="11,32,0,493"
+                Content="Вывести список" 
+                FontSize="15" HorizontalAlignment="Left" Width="250"/>
+
+        <Label Content="Список контактов" 
+               HorizontalAlignment="Left" 
+               Margin="10,3,0,0" 
+               VerticalAlignment="Top" 
+               Width="277"
+               FontSize="13"/>
+
+
+
+        <DataGrid ItemsSource="{Binding Contacts}"
+                  AutoGenerateColumns="True"
+                  ColumnHeaderHeight="0"
+                  CanUserAddRows="False"
+                  HorizontalAlignment="Left"
+                  Height="522"
+                  Margin="276,30,0,0"
+                  VerticalAlignment="Top"
+                  Width="535">
+        </DataGrid>
+
+        <GroupBox Header="Данные" Margin="10,82,0,244" HorizontalAlignment="Left" Width="251">
+            <Grid Margin="0,0,0,-2">
+                <Label Content="Введите номер телефона"     
+               HorizontalAlignment="Left" 
+               Margin="10,4,0,0" 
+               VerticalAlignment="Top" 
+               FontSize="13"/>
+
+                <Label Content="цифры вводяться без пробелов" 
+               HorizontalAlignment="Left" 
+               Margin="10,31,0,0" 
+               VerticalAlignment="Top" 
+               Width="206"
+               FontSize="13"/>
+
+                <TextBox HorizontalAlignment="Left" 
+                 Height="23" 
+                 Margin="10,63,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="{Binding PhoneNumber}" 
+                 VerticalAlignment="Top" 
+                 Width="215"/>
+                <Label Content="Введите ФИО контакта полностью"     
+        	HorizontalAlignment="Left" 
+        	Margin="10,91,0,0" 
+        	VerticalAlignment="Top" 
+        	FontSize="13"/>
+
+                <TextBox HorizontalAlignment="Left" 
+        	             Height="23" 
+        	             Margin="10,123,0,0" 
+        	             TextWrapping="Wrap" 
+        	             Text="{Binding FullName}" 
+        	             VerticalAlignment="Top" 
+        	             Width="215"/>
+                <Label Content="Id контакта"     
+                	    HorizontalAlignment="Left" 
+                	    Margin="10,159,0,0" 
+                	    VerticalAlignment="Top" 
+                	    FontSize="13" Width="215"/>
+                <TextBox HorizontalAlignment="Left" 
+                	     Height="23" 
+                	     Margin="10,186,0,0" 
+                	     TextWrapping="Wrap" 
+                	     Text="{Binding Id}" 
+                	     VerticalAlignment="Top" 
+                	     Width="215"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Действия" HorizontalAlignment="Left" Margin="11,334,0,0" VerticalAlignment="Top" Height="218" Width="250">
+            <Grid>
+                <Button Command="{Binding AddContactCommand}"
+            		Content="Добавить контакт" 
+            		HorizontalAlignment="Left" 
+            		Margin="10,67,0,0" 
+            		VerticalAlignment="Top" 
+            		Width="218"/>
+                <Button Command="{Binding FindContactbyPhoneCommand}"
+                	Content="Найти контакт по телефону" 
+                	HorizontalAlignment="Left" 
+                	Margin="10,40,0,0" 
+                	VerticalAlignment="Top" 
+                	Width="218"/>
+                <Button Command="{Binding FindContactbyNameCommand}"
+                	Content="Найти контакт по имени" 
+                	HorizontalAlignment="Left" 
+                	Margin="10,13,0,0" 
+                	VerticalAlignment="Top" 
+                	Width="218"/>
+                <Button Command="{Binding DeleteContactCommand}"
+                	Content="Удалить контакт" 
+                	HorizontalAlignment="Left" 
+                	Margin="10,94,0,0" 
+                	VerticalAlignment="Top" 
+                	Width="218"/>
+                <Button Command="{Binding ChangePhoneNumberCommand}"
+                	Content="Обновить контакт" 
+                	HorizontalAlignment="Left" 
+                	Margin="10,121,0,0" 
+                	VerticalAlignment="Top" 
+                	Width="218"/>
+            </Grid>
+        </GroupBox>
+
+
+
+
+    </Grid>
+</Window>
