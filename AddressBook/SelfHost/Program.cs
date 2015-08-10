@@ -4,7 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Address.Service.GetFind;
+using Address.Service.Codes;
 
 namespace SelfHost
 {
@@ -12,11 +12,11 @@ namespace SelfHost
     {
         static void Main(string[] args)
         {
-            ServiceHost host = new ServiceHost(typeof(AddBookGetFindService));
-            host.Open();
+            ServiceHost host = new ServiceHost(typeof(AddBookService));
+            
             try
             {
-
+                host.Open();
                 Console.WriteLine("Hit any key to shut down");
                 Console.ReadKey();
 

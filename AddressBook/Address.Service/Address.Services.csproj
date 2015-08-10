@@ -63,8 +63,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetFind\AddBookGetFindService.cs" />
-    <Compile Include="GetFind\IAddressBookGetFind.cs" />
+    <Compile Include="Codes\AddBookService.cs" />
+    <Compile Include="Codes\IAddressBookService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

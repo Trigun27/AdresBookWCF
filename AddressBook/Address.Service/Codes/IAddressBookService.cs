@@ -2,10 +2,10 @@
 using System.ServiceModel;
 using AddressBook.Entites;
 
-namespace Address.Service.GetFind
+namespace Address.Service.Codes
 {
     [ServiceContract]
-    public interface IAddressBookGetFind
+    public interface IAddressBookService
     {
         [OperationContract]
         List<Contact> GetContact();
@@ -16,6 +16,14 @@ namespace Address.Service.GetFind
         [OperationContract]
         List<Contact> FindContactbyName(int varOperation, string str);
 
+        [OperationContract]
+        void AddContact(Contact contact);
+
+        [OperationContract]
+        int ChangePhoneNumber();
+
+        [OperationContract]
+        int DeleteContact();
 
     }
 }

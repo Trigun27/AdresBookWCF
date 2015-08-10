@@ -5,13 +5,12 @@ using System.ServiceModel;
 using AddressBook.Data;
 using AddressBook.Entites;
 
-namespace Address.Service.GetFind
+namespace Address.Service.Codes
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class AddBookGetFindService : IAddressBookGetFind, IDisposable
+    public class AddBookService : IAddressBookService, IDisposable
     {
         readonly AddBookDbContext _context = new AddBookDbContext();
-
 
         public List<Contact> GetContact()
         {
@@ -53,6 +52,20 @@ namespace Address.Service.GetFind
             return null;
         }
 
+        public void AddContact(Contact contact)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ChangePhoneNumber()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteContact()
+        {
+            throw new NotImplementedException();
+        }
 
 
         /*public List<Contact> FindContactbyName(string firstName, string middleName, string lastName)
